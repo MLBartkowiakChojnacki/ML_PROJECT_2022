@@ -14,7 +14,7 @@ def load_csv(directory: str, df_name: str) -> pd.DataFrame:
     df = pd.read_csv('{}/{}.csv'.format(directory, df_name), header=None)
     if df.shape[1] > 1:
         df.columns = [ 'feature_' + str(i) for i in range(len(df.columns)) ]
-    else:
+    elif df.shape[1] == 1:
         df.columns = ['target']
     return df
 
