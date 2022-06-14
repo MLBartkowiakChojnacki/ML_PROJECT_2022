@@ -31,13 +31,3 @@ def load_df_from_pkl(directory: str, filename: str) -> pd.DataFrame:
     """loading prepared and pickled dataframe"""
     df = pd.read_pickle('{}/{}.pkl'.format(directory, filename))
     return pd.DataFrame(df)
-
-
-#df_name = 'train_labels'
-#filename = 'y'
-#full_dir = set_abs_path('data\\raw')
-#y = load_csv(full_dir, df_name)
-#print(y.head())
-#ave_df_as_pkl(y, full_dir, filename)
-#df = load_df_from_pkl(full_dir, filename)
-#print(df.head())
