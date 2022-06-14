@@ -1,39 +1,43 @@
 import pandas as pd
 import numpy as np
 import pickle as pkl
-
-data_directory_vsc = 'C:/Users/Marta/Desktop/Studia/CDV/IV semestr 2022L/Wykorzystanie Pythona w uczeniu maszynowym/ml_project/project/ML_PROJECT_2022/data'
-data_directory_colab = '/content/project/data'
-
-directory = 'C:/Users/Marta/Desktop/project'
-df_name = 'train_labels'
+import os
 
 
-# loading dataframe for the first time
+def set_abs_path(folder_name: str) -> str:
+    #path = os.split(os.getcwd())
+    #full_dir = os.path.join(os.path.split(os.getcwd())[0], folder_name)
+    full_dir = os.path.join(os.getcwd(), folder_name)
+    return full_dir
+
+
 def load_csv(directory: str, df_name: str) -> pd.DataFrame:
-    df = pd.read_csv('{}/{}.csv'.format(directory, df_name), header=None)
+    """loading dataframe for the first time"""
+    df = pd.read_csv(f'{directory}/{df_name}.csv', header=None)
     if df.shape[1] > 1:
         df.columns = [ 'feature_' + str(i) for i in range(len(df.columns)) ]
     elif df.shape[1] == 1:
         df.columns = ['target']
-    return df
+    return pd.DataFrame(df)
 
 
-# saving dataframe as pickle
-def save_df_as_pkl(df: pd.DataFrame, directory: str, filename: str) -> str:
+def save_df_as_pkl(df: pd.DataFrame, directory: str, filename: str):
+    """saving dataframe as pickle"""
     df.to_pickle('{}/{}.pkl'.format(directory, filename))
-    return print("Dataframe '{}.pkl' saved as a pickle.".format(filename))
+    return 
 
 
-# loading prepared and pickled dataframe
 def load_df_from_pkl(directory: str, filename: str) -> pd.DataFrame:
+    """loading prepared and pickled dataframe"""
     df = pd.read_pickle('{}/{}.pkl'.format(directory, filename))
-    return df
+    return pd.DataFrame(df)
 
 
-filename = 'y'
-y = load_csv(directory, df_name)
-print(y.head())
-save_df_as_pkl(y, directory, filename)
-df = load_df_from_pkl(directory, filename)
-print(df.head())
+#df_name = 'train_labels'
+#filename = 'y'
+#full_dir = set_abs_path('data\\raw')
+#y = load_csv(full_dir, df_name)
+#print(y.head())
+#ave_df_as_pkl(y, full_dir, filename)
+#df = load_df_from_pkl(full_dir, filename)
+#print(df.head())
