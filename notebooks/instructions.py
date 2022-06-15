@@ -20,6 +20,8 @@ def load_csv(directory: str, df_name: str) -> pd.DataFrame:
         df.columns = ['target']
     return pd.DataFrame(df)
 
+def save_csv():
+    return
 
 def save_df_as_pkl(df: pd.DataFrame, directory: str, filename: str):
     """saving dataframe as pickle"""
