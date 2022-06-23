@@ -18,7 +18,7 @@ There are no significant correlations between features. Only one feature reaches
 
 The target contains two classes: -1 and 1 with 1:9 ratio, as shown in the chart below.
 
-![Class distribution](figures/class_distribution.jpg "Class distribution")  
+![Class distribution](figures/target_distribution.jpg "Class distribution")  
 
 Features to the target also do not show any relevant correlation, any result can be found between -0.07 and 0.07.
 
@@ -30,6 +30,6 @@ At the beginning the idea was to standardize the data by StandardScaler to bring
 
 Thus, every step taken had to be rethink. First of all was to look once more into the data and check if clusters can be seen without any preprocessing. For this purpose elbow method and PCA with 1 and 2 components was used. First diagram clearly shows that the labels overlap in a certain area, there is no significant gap in distribution of label "1" (yellow color). Second graph is more optimistic, two structured clusters can be seen on the chart, but the clouds belong to one class. After applying the colors, second cluster emerges between two strong appearances of the first class. 
 
-[PCA 3 diagrams]
+![Supervised clustering](figures/clustering.jpg "Supervised clustering")  
 
 This discovery zapoczątkowało SMOTE, ale po smote model overfittował, więc wycofaliśy się ze smote i było spoko, dobrze sobie radził KNN 
