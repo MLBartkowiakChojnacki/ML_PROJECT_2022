@@ -31,9 +31,3 @@ def load_df_from_pkl(directory: str, filename: str) -> pd.DataFrame:
     return df
 
 
-filename = 'y'
-y = load_csv(directory, df_name)
-print(y.head())
-save_df_as_pkl(y, directory, filename)
-df = load_df_from_pkl(directory, filename)
-print(df.head())

@@ -14,7 +14,7 @@ Most features present signs of Gaussian distribution, close to 95% passed the no
 
 ![Feature distribution](figures/feature_distribution.png "Feature distribution")
 
-There are no significant correlations between features. [above 0.7 / weak positive corr / neutral / weak negative corr / under -0.7]
+There are no significant correlations between features. Only one feature reaches positive correlation indicator above 0.7, the rest is neutral, oscilating below 0.1. There is no negative correlation at all.
 
 ## Target
 
