@@ -4,17 +4,19 @@ The aim of this project was to investigate a number of models to find one with a
 
 # Dataset description
 
+## Features
+
 A collection of data intended for this project is consisting of training set of 3750 samples and test set of 1250 samples, associated with a label from 2 classes. Each set has 10000 features, floating point type. Data set is complete and does not show any duplicates. Contamination by outliers is very low, less than 1% in the entire dataset, (MAX ROW, MAX COL) due to the low contamination, outliers do not need to be removed from the data.
 
 [Chart min/max/mean]
 
 There are no significant correlations between features. [above 0.7 / weak positive corr / neutral / weak negative corr / under -0.7]
 
-The target (or class) distribution is 1:9 labeled by 1 or -1 (which had to be renamed for better performance), as shown in the chart below.
+## Target
+
+The target contains two classes: -1 and 1 with 1:9 ratio, as shown in the chart below.
 
 ![Class distribution](figures/class_distribution.jpg "Class distribution")  
-
-[Target distribution chart](!pic of target!)
 
 Features to the target also do not show any relevant correlation, any result can be found between -0.07 and 0.07.
 
@@ -26,7 +28,7 @@ At the beginning the idea was to standardize the data by StandardScaler to bring
 
 [PCA diagram]
 
-(REWRITE: That surprise made us rethink every step taken.) First of all was to look once more into the data and check if clusters can be seen without any preprocessing. For this purpose PCA with 1 and 2 components was used. First diagram clearly shows that the labels overlap in a certain area, there is no significant gap in distribution of label "1" (yellow color). Second graph is more optimistic, two structured clusters can be seen on the chart, but the clouds belong to one class. After applying the colors, second cluster emerges between two strong appearances of the first class. 
+Thus, every step taken had to be rethink. First of all was to look once more into the data and check if clusters can be seen without any preprocessing. For this purpose PCA with 1 and 2 components was used. First diagram clearly shows that the labels overlap in a certain area, there is no significant gap in distribution of label "1" (yellow color). Second graph is more optimistic, two structured clusters can be seen on the chart, but the clouds belong to one class. After applying the colors, second cluster emerges between two strong appearances of the first class. 
 
 [PCA 3 diagrams]
 
