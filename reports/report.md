@@ -6,9 +6,13 @@ The aim of this project was to investigate a number of models to find one with a
 
 ## Features
 
-A collection of data intended for this project is consisting of training set of 3750 samples and test set of 1250 samples, associated with a label from 2 classes. Each set has 10000 features, floating point type. Data set is complete and does not show any duplicates. Contamination by outliers is very low, less than 1% in the entire dataset, (MAX ROW, MAX COL) due to the low contamination, outliers do not need to be removed from the data.
+A collection of data intended for this project is consisting of training set of 3750 samples and test set of 1250 samples, associated with a label from 2 classes. Each set has 10000 features, floating point type. Data set is complete and does not show any duplicates. Contamination by outliers is very low, less than 1% in the entire dataset, the highest indicator for columns reaches 2.8% and for rows 0.56%. Due to the low contamination, outliers do not need to be removed from the data.
 
 [Chart min/max/mean]
+
+Most features present signs of Gaussian distribution, close to 95% passed the normal distribution test, what can be perfectly shown on the chart below after standardization. 
+
+![Feature distribution](figures/feature_distribution.png "Feature distribution")
 
 There are no significant correlations between features. [above 0.7 / weak positive corr / neutral / weak negative corr / under -0.7]
 
@@ -19,8 +23,6 @@ The target contains two classes: -1 and 1 with 1:9 ratio, as shown in the chart 
 ![Class distribution](figures/class_distribution.jpg "Class distribution")  
 
 Features to the target also do not show any relevant correlation, any result can be found between -0.07 and 0.07.
-
-Most features present signs of Gaussian distribution, close to 95% passed the normal distribution test, what can be perfectly shown on the chart below after standardization. [standard scaler chart]
 
 # Technics and workflow
 
