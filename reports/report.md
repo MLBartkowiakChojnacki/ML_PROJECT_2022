@@ -6,7 +6,7 @@ The aim of this project was to investigate a number of models to find one with a
 
 ## Features
 
-A collection of data intended for this project is consisting of training set of 3750 samples and test set of 1250 samples, associated with a label from 2 classes. Each set has 10000 features, floating point type. Data set is complete and does not show any duplicates. Contamination by outliers is very low, less than 1% in the entire dataset, the highest indicator for columns reaches 2.8% and for rows 0.56%. Due to the low contamination, outliers do not need to be removed from the data.
+A collection of data intended for this project is consisting of training set of 3750 samples  associated with a label from 2 classes and test set of 1250 samples. Each set has 10000 features, floating point type. Data set is complete and does not show any duplicates. Contamination by outliers is very low, less than 1% in the entire dataset, the highest indicator for columns reaches 2.8% and for rows 0.56%. Due to the low contamination, outliers do not need to be removed from the data.
 
 Most features present signs of Gaussian distribution, close to 95% passed the normal distribution test, what can be perfectly shown on the chart below after standardization. 
 
@@ -16,7 +16,7 @@ There are no significant correlations between features. Only one feature reaches
 
 ## Target
 
-The target contains two classes: -1 and 1 with 1:9 ratio, as shown in the chart below.
+The target contains two classes: "-1" and "1" with 1:9 ratio, as shown in the chart below.
 
 ![Class distribution](figures/target_distribution.jpg "Class distribution")  
 
@@ -32,4 +32,4 @@ Thus, every step taken had to be rethink. First of all was to look once more int
 
 ![Supervised clustering](figures/clustering.jpg "Supervised clustering")  
 
-This discovery zapoczątkowało SMOTE, ale po smote model overfittował, więc wycofaliśy się ze smote i było spoko, dobrze sobie radził KNN 
+Feature selection consisted in leaving the data, which explained 95% of the variance.
