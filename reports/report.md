@@ -12,7 +12,7 @@ There are no significant correlations between features. [above 0.7 / weak positi
 
 The target (or class) distribution is 1:9 labeled by 1 or -1 (which had to be renamed for better performance), as shown in the chart below.
 
-![Class distribution](figures/class_distribution.png "Class distribution")  
+![Class distribution](figures/class_distribution.jpg "Class distribution")  
 
 [Target distribution chart](!pic of target!)
 
@@ -26,7 +26,7 @@ At the beginning the idea was to standardize the data by StandardScaler to bring
 
 [PCA diagram]
 
-That surprise made us rethink every step taken. First of all was to look once more into the data and check if clusters can be seen without any preprocessing. For this purpose PCA with 1 and 2 components was used. First diagram clearly shows that the labels overlap in a certain area, there is no significant gap in distribution of label "1" (yellow color). Second graph is more optimistic, two structured clusters can be seen on the chart, but the clouds belong to one class. After applying the colors, second cluster emerges between two strong appearances of the first class. 
+(REWRITE: That surprise made us rethink every step taken.) First of all was to look once more into the data and check if clusters can be seen without any preprocessing. For this purpose PCA with 1 and 2 components was used. First diagram clearly shows that the labels overlap in a certain area, there is no significant gap in distribution of label "1" (yellow color). Second graph is more optimistic, two structured clusters can be seen on the chart, but the clouds belong to one class. After applying the colors, second cluster emerges between two strong appearances of the first class. 
 
 [PCA 3 diagrams]
 
