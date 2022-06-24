@@ -1,10 +1,28 @@
 # Abstract
 
-The aim of this project was to investigate a number of models to find one with as high performance as possible. After a preliminary study of the provided data set, it became apparent that the problem fell under the imbalanced binary classification set with both classes being important. Thus, the study could be evaluated by two certain metrics: balanced accuracy score and F1 score. Due to the class distribution, the major discovery was that not every classification model was suitable for this kind of problem.
+## Problem statement
 
-# Dataset description
+The aim of this project was to investigate a number of models to find one with as high performance as possible. After a preliminary study of the provided data set, it became apparent that the problem fell under the imbalanced binary classification set with both classes being important. Thus, the study could be evaluated by two certain metrics: balanced accuracy score and weighted F1 score. Due to the class distribution, the major discovery was that not every classification model was suitable for this kind of problem.
 
-## Features
+## Metrics
+
+*The balanced accuracy* in binary classification is a metric used to deal with imbalanced dataset. Is calculated as the average of the proportion corrects of each class individually.
+
+$Balanced Accuracy$ = $(Sensitivity + Specificity) \over 2$
+
+Where *sensitivity* is the true positive rate, true positive ratio to all positive classified, and *specificity* is the true negative rate, true negative to all negative classified respectively.
+
+*F1 score* is defined as the harmonic mean of *precision* and *recall*. Normally is used to evaluate model performance when the true class is important. I this case *weighted* parametr is apropriate due to both classes importance. The average calculated by this metric is weighted by the *support*, which is the number of samples with a given label.
+
+$F1 score$ = $2 * Precision * Recall \over Precision + Recall$
+
+Where *precision* is the ratio of true positives to all labeled positives, and *recall* is true positives to all positives ratio.
+
+# Analysis
+
+## Data exploration
+
+### Features
 
 A collection of data intended for this project is consisting of training set of 3750 samples  associated with a label from 2 classes and test set of 1250 samples. Each set has 10000 features, floating point type. Data set is complete and does not show any duplicates. Contamination by outliers is very low, less than 1% in the entire dataset, the highest indicator for columns reaches 2.8% and for rows 0.56%. Due to the low contamination, outliers do not need to be removed from the data.
 
@@ -14,7 +32,7 @@ Most features present signs of Gaussian distribution, close to 95% passed the no
 
 There are no significant correlations between features. Only one feature reaches positive correlation indicator above 0.7, the rest is neutral, oscilating below 0.1. There is no negative correlation at all.
 
-## Target
+### Target
 
 The target contains two classes: "-1" and "1" with 1:9 ratio, as shown in the chart below.
 
@@ -22,7 +40,9 @@ The target contains two classes: "-1" and "1" with 1:9 ratio, as shown in the ch
 
 Features to the target also do not show any relevant correlation, any result can be found between -0.07 and 0.07.
 
-# Technics and workflow
+# Techniques and methodology
+
+## Data preprocessing
 
 At the beginning the idea was to standardize the data by StandardScaler to bring the various numbers down to a common level and perform better scores. Removing outliers using IQR method was a subsequent step to minimize the risk of misjudged results. The last step was reduction of dimensions based on ANOVA test, which is a statistical technique used to check if the means of two or more groups significanlty differ. After these steps it turned out that clusters are indistinguishable, as can be seen in the attached diagram.
 
@@ -32,4 +52,7 @@ Thus, every step taken had to be rethink. First of all was to look once more int
 
 ![Supervised clustering](figures/clustering.jpg "Supervised clustering")  
 
-Feature selection consisted in leaving the data, which explained 95% of the variance.
+Feature selection consisted in retain the data, which explained 95% of the variance. PCA with 0.95 components has been used to achieve this goal.
+
+## Finding best model
+
