@@ -109,7 +109,7 @@ def splitting_data(X, y):
 
     """
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.3, shuffle=True, stratify=y, random_state=42
+        X, y, test_size=0.3, shuffle=True, stratify=y
     )
     return X_train, X_test, y_train, y_test
 
@@ -302,7 +302,7 @@ def y_test_pred_to_csv(y_test_pred, name):
     None.
 
     """
-    y_test_pred.to_csv(f"{name}.csv")
+    y_test_pred.to_csv(f"{name}.csv", index = False, header=None)
 
 
 if __name__ == "__main__":
