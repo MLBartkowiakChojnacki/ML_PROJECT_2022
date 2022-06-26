@@ -84,11 +84,11 @@ Feature selection relied on retaining the data, which explained 95% of the varia
 
 It quickly became clear, that ordinary `PCA` is not the best way to reduce dimensions. Provided data set showed symptoms of non-linearity, thus `KernelPCA` was better option.
 
-However, main problem here was component selection. `PCA` allows to set up 0.95 as a component, which means: "take the amount of components, that explain 95% of variance". Such a procedure is not possible with `KernelPCA`. The finest amount of components was emerged through trial and error, chart below presents results of that trial.
+However, main problem here was component selection. `PCA` allows to set up 0.95 as a component, which means: "take the amount of components, that explain 95% of variance". Such a procedure is not possible with `KernelPCA`. The optimal number of components was discovered through trial and error, chart below presents the results.
 
 ![Number of components vs score](figures/components_vs_score.jpg "Number of components vs score")  
 
-It turned out that 21 components is fine.
+It turned out that 21 components is optimal.
 
 ## Finding best model
 
@@ -157,23 +157,23 @@ To evaluate the model effectivenes it is necesary to compare its results to prev
       
                             0        1
 
-                  0       110        3              
-                  1       126      886
+                  0       107        6              
+                  1       69       943
 
 
 2. Score:  
-   *balanced_accuracy_score* = **0.92**
+   *balanced_accuracy_score* = **0.94**
 
 3. Classification report:  
    
                      precision    recall  f1-score   support
 
-                  0       0.48      0.97      0.64       113
-                  1       1.00      0.88      0.94      1012
+                  0       0.61      0.95      0.74       113
+                  1       0.99      0.93      0.96      1012
 
-           accuracy                           0.89      1125
-          macro avg       0.74      0.93      0.79      1125
-       weighted avg       0.94      0.89      0.91      1125
+           accuracy                           0.93      1125
+          macro avg       0.80      0.94      0.85      1125
+       weighted avg       0.95      0.93      0.94      1125
 
 ## Conclusions
 
@@ -183,3 +183,4 @@ Through developing and bringing the project to the final stage, several conclusi
 2. **every data set needs individual approach**. There is no unified process path for any machine learning project. 
 3. **dimensionality reduction strategy stronlgy depends on linearity or non-linearity of data classification**. Provided data set showed symptoms of non-linearity, what is visible on cluster analysis chart. It required the use of `KernelPCA` instead of ordinary `PCA`. 
 4. **it is not easy to get revelant results with imbalanced data set**. Metrics used to evaluate model had to be considered in terms of what is important for the result. 
+5. **paying attention on what confusion matrix presents**. Baseline achieved very good score in this data set due to the overwhelming majority of one class. Only the use of the appropriate metric and reading the matrix allowed to get real insight.
