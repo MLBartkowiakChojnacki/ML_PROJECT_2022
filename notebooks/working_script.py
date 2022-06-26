@@ -12,32 +12,31 @@ from sklearn.neighbors import KNeighborsClassifier
 from imblearn.over_sampling import SMOTE
 from sklearn.metrics import confusion_matrix, balanced_accuracy_score
 from sklearn.model_selection import train_test_split
-from os import chdir
+import os
 from sklearn.decomposition import KernelPCA
 import joblib
 
-path = r"C:\Users\krzys\Desktop\data science\IV semestr\machine_learning_2\projekt"
-# data_directory = os.path.join(path[0], 'data\\raw')
-chdir(path)
-
-
-def loading_files(path):
-    """
-    Function allows you to load labels and target.
+def loading_files(X_name, y_name):
+    '''
+    Loading labels and target for model.
 
     Parameters
     ----------
-    path : our working directory
+    X_name : DataFrame
+        Labels used for learning model.
+    y_name : DataFrame
+        Target used for learning model.
 
     Returns
     -------
     X : DataFrame
-
+        Labela.
     y : DataFrame
+        Target.
 
-    """
-    X = pd.read_csv("train_data.csv", header=None)
-    y = pd.read_csv("train_labels.csv", header=None)
+    '''
+    X = pd.read_csv(f"{X_name}.csv", header=None)
+    y = pd.read_csv(f"{y_name}.csv", header=None)
     return X, y
 
 
@@ -109,7 +108,7 @@ def splitting_data(X, y):
 
     """
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.3, shuffle=True, stratify=y
+        X, y, test_size=0.3, shuffle=True, stratify=y, random_state=42
     )
     return X_train, X_test, y_train, y_test
 
@@ -306,7 +305,8 @@ def y_test_pred_to_csv(y_test_pred, name):
 
 
 if __name__ == "__main__":
-    X, y = loading_files(path)
+    os.chdir(os.path.join(os.getcwd(),"projekt"))
+    X, y = loading_files(X_name = "train_data", y_name = "train_labels")
     y_binar = binarization(y)
     X_pca = kernel_principal_component_analysis(X, n_components=1012)
     X_train, X_test, y_train, y_test = splitting_data(X_pca, y_binar)
