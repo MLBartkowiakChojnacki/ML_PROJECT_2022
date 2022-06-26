@@ -247,6 +247,7 @@ def conf_matrix(y_test, y_pred):
 
     """
     conf_matrix = confusion_matrix(y_test, y_pred)
+    np.savetxt("confusion_matrix.csv", conf_matrix, delimiter=",")
     return conf_matrix
 
 
