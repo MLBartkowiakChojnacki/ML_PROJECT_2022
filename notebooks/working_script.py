@@ -2,7 +2,7 @@
 """
 Created on Sat Jun 25 10:25:56 2022
 
-@author: krzys
+@author: krzysztof
 """
 
 import pandas as pd
@@ -15,6 +15,7 @@ from sklearn.model_selection import train_test_split
 import os
 from sklearn.decomposition import KernelPCA
 import joblib
+
 
 def loading_files(X_name, y_name):
     '''
@@ -60,24 +61,24 @@ def binarization(y):
     return y
 
 
-def kernel_principal_component_analysis(X, n_components=1012):
-    global kpca
-    """
-    Non-linear dimensionality reduction through the use of kernels 
+def kernel_principal_component_analysis(X, n_components):
+    '''
+    Non-linear dimensionality reduction through the use of kernels
 
     Parameters
     ----------
     X : DataFrame
-        Labels which will undergo PCA.
-    n_components : float
-        DESCRIPTION. The default is 0.95.
+        Labels.
+    n_components : int
+        Number of components.
 
     Returns
     -------
     X_pca : DataFrame
-        After dimensions reduction. By default 95% of variance.
+        Target with reduced dimensions.
 
-    """
+    '''
+    global kpca
     kpca = KernelPCA(n_components=n_components)
     X_pca = kpca.fit_transform(X)
     X_pca = pd.DataFrame(X_pca)
@@ -108,7 +109,7 @@ def splitting_data(X, y):
 
     """
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.3, shuffle=True, stratify=y, random_state=42
+        X, y, test_size=0.3, shuffle=True, stratify=y
     )
     return X_train, X_test, y_train, y_test
 
@@ -309,7 +310,7 @@ if __name__ == "__main__":
     os.chdir(os.path.join(os.getcwd(),"projekt"))
     X, y = loading_files(X_name = "train_data", y_name = "train_labels")
     y_binar = binarization(y)
-    X_pca = kernel_principal_component_analysis(X, n_components=1012)
+    X_pca = kernel_principal_component_analysis(X, n_components=70)
     X_train, X_test, y_train, y_test = splitting_data(X_pca, y_binar)
     X_sm, y_sm = oversampling_data(X_train, y_train)
     clf = machine_learning_model_KNN(n_neighbors=9, weights="uniform", algorithm="auto")
