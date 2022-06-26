@@ -310,7 +310,7 @@ if __name__ == "__main__":
     os.chdir(os.path.join(os.getcwd(),"projekt"))
     X, y = loading_files(X_name = "train_data", y_name = "train_labels")
     y_binar = binarization(y)
-    X_pca = kernel_principal_component_analysis(X, n_components=70)
+    X_pca = kernel_principal_component_analysis(X, n_components=21)
     X_train, X_test, y_train, y_test = splitting_data(X_pca, y_binar)
     X_sm, y_sm = oversampling_data(X_train, y_train)
     clf = machine_learning_model_KNN(n_neighbors=9, weights="uniform", algorithm="auto")
