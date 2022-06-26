@@ -76,22 +76,32 @@ The last step was reduction of dimensions based on ANOVA test, which is a statis
 
 ![Cluster analysis](figures/cluster_analysis.jpg "Cluster analysis")  
 
-Thus, every previous step had to be reconsidered. For this purpose `PCA` with 1 and 2 components was used. Second look without any preprocessing revealed ordered clusters. First diagram clearly shows that the labels overlap in a certain area, there is no significant gap in distribution of label "1" (yellow color). Second graph is more optimistic, two structured clusters are clearly visible, but the clouds belong to one class. After applying the colors, second cluster emerges between two strong appearances of the first class.  
+Thus, every previous step had to be reconsidered. For this purpose `KernelPCA` with 1 and 2 components was used. Second look without any preprocessing revealed ordered clusters. First diagram clearly shows that the labels overlap in a certain area, there is no significant gap in distribution of label "1" (yellow color). Second graph is more optimistic, two structured clusters are clearly visible, but the clouds belong to one class. After applying the colors, second cluster emerges between two strong appearances of the first class.  
 
 ![Supervised clustering](figures/clustering.jpg "Supervised clustering")  
 
-Feature selection relied on retaining the data, which explained 95% of the variance. PCA with 0.95 components had been used to achieve this goal.  
+Feature selection relied on retaining the data, which explained 95% of the variance. `PCA` with 0.95 components had been used to achieve this goal.  
+
+It quickly became clear, that ordinary `PCA` is not the best way to reduce dimensions. Provided data set showed symptoms of non-linearity, thus `KernelPCA` was better option.
+
+However, main problem here was component selection. `PCA` allows to set up 0.95 as a component, which means: "take the amount of components, that explain 95% of variance". Such a procedure is not possible with `KernelPCA`. The finest amount of components was emerged through trial and error, chart below presents results of that trial.
+
+![Number of components vs score](figures/components_vs_score.jpg "Number of components vs score")  
+
+It turned out that 21 components is fine.
 
 ## Finding best model
 
 ### Dataset split
 
-Splitting the data set is the most important part of the entire machine learning process. The more varied the training set the better the model performance. It also raises the chance of avoiding overfitting. Imbalanced classification requires every precaution to be taken. `RepeatedStratifiedKFold` seemed to be the best option for this challenge, for the sake of several functionalities it offers:  
+Splitting the data set is the most important part of the entire machine learning process. The more varied the training set the better the model performance. It also raises the chance of avoiding overfitting. Imbalanced classification requires every precaution to be taken. `RepeatedStratifiedKFold` had been used as a cross validation to `GridSearch` during the search for the best model. It seemed to be the best option for this challenge, for the sake of several functionalities it offers:  
 
 - splitting entire data into $n$-assigned folds,
 - maintaining a proper data balance,
 - paying attention to data randomization,
 - repetitiveness.  
+
+However, for learning selected algorithm ordinary `train_test_split` had been used with keeping *shuffle* statement and *stratify* focused on target.
 
 ### Classifiers selection
 
@@ -107,12 +117,69 @@ The longest and hardest part of the entire project was the selection of algorith
 | `RandomForestClassifier` | n_estiamtors<br>max_features| 10; 100; 1000<br>*auto*; *sqrt*; *log2*  |
 | `ExtraTreeClassifier` | n_estimators<br>criterion<br>max_features | 10; 100; 1000<br>*gini*; *entropy*; *log_loss*<br>*sqrt*; *log2*; *none*
 
+For searching the best model, `GridSearchCV` had been used due to its exhaustive approach and cross validation support. 
 
-EVERY ALGORITHM WITH PERFORMANCE ON A CHART
+It turned out that the best classifier for this data set is `KNeighborsClassifier` with following parameters:
+- n_neighbors: 9,
+- weights: *uniform*,
+- algorithm: *auto*.  
 
-# Conclusions
+# Summary
 
-Porównanie z baseline  
-metryki  
-confusion matrix  
-classisifaction report
+## Baseline vs learned model
+
+To evaluate the model effectivenes it is necesary to compare its results to previously prepared baseline. The matrix below presents the results for the baseline, which was `DummyClassifier` with *most_frequent* strategy.
+
+**Baseline**
+1. Confusion matrix:  
+   
+                            0        1
+
+                  0         0      113              
+                  1         0     1012
+
+2. Score:  
+   *balanced_accuracy_score* = **0.5**
+
+3. Classification report:  
+   
+                     precision    recall  f1-score   support
+
+                  0       0.00      0.00      0.00       113
+                  1       0.90      1.00      0.95      1012
+
+           accuracy                           0.90      1125
+          macro avg       0.45      0.50      0.47      1125
+       weighted avg       0.81      0.90      0.85      1125
+
+**Model**
+1. Confusion matrix:  
+      
+                            0        1
+
+                  0       110        3              
+                  1       126      886
+
+
+2. Score:  
+   *balanced_accuracy_score* = **0.92**
+
+3. Classification report:  
+   
+                     precision    recall  f1-score   support
+
+                  0       0.48      0.97      0.64       113
+                  1       1.00      0.88      0.94      1012
+
+           accuracy                           0.89      1125
+          macro avg       0.74      0.93      0.79      1125
+       weighted avg       0.94      0.89      0.91      1125
+
+## Conclusions
+
+Through developing and bringing the project to the final stage, several conclusions emerged:
+
+1. **preparing charts and other data visualization means is crutial to get better insight of data**. Without visualizations presented above it would be harder to notice that preprocessing used at first baldy affects the provided data. 
+2. **every data set needs individual approach**. There is no unified process path for any machine learning project. 
+3. **dimensionality reduction strategy stronlgy depends on linearity or non-linearity of data classification**. Provided data set showed symptoms of non-linearity, what is visible on cluster analysis chart. It required the use of `KernelPCA` instead of ordinary `PCA`. 
+4. **it is not easy to get revelant results with imbalanced data set**. Metrics used to evaluate model had to be considered in terms of what is important for the result. 
